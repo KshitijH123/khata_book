@@ -10,9 +10,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
- 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,7 +17,16 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
-     
+      body: const Center(
+        child: Text('Welcome to the home page!'),
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+         
+        },
+        label: const Text('Add Customer'),
+        icon: const Icon(Icons.add), 
+      ),
     );
   }
 }
