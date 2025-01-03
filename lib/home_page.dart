@@ -16,7 +16,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
+        title: const Text('Khata Book',style: TextStyle(fontSize: 26),),
       ),
       body: const Center(
         child: Text('Welcome to the home page!'),
@@ -29,7 +29,7 @@ class _MyHomePageState extends State<MyHomePage> {
           );
         },
         label: const Text('Add Customer'),
-        icon: const Icon(Icons.add), 
+        icon: const Icon(Icons.person_add), 
       ),
     );
   }
