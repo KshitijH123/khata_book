@@ -12,16 +12,14 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   List<Map<String, dynamic>> transactions = [];
-  List<Map<String, dynamic>> filteredTransactions =
-      [];
-  TextEditingController _searchController = TextEditingController();
+  List<Map<String, dynamic>> filteredTransactions = [];
+  final TextEditingController _searchController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
     filteredTransactions = transactions;
-    _searchController
-        .addListener(_filterTransactions); 
+    _searchController.addListener(_filterTransactions);
   }
 
   @override
@@ -43,17 +41,37 @@ class _MyHomePageState extends State<MyHomePage> {
   void addTransaction(Map<String, dynamic> transaction) {
     setState(() {
       transactions.add(transaction);
-      filteredTransactions =
-          transactions; 
+      filteredTransactions = transactions;
     });
   }
 
   void deleteTransaction(int index) {
-    setState(() {
-      transactions.removeAt(index);
-      filteredTransactions =
-          transactions; 
-    });
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Confirm Delete'),
+        content:
+            const Text('Are you sure you want to delete this transaction?'),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: const Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () {
+              setState(() {
+                transactions.removeAt(index);
+                filteredTransactions = transactions;
+              });
+              Navigator.of(context).pop(); 
+            },
+            child: const Text('Delete', style: TextStyle(color: Colors.red)),
+          ),
+        ],
+      ),
+    );
   }
 
   @override
@@ -86,21 +104,45 @@ class _MyHomePageState extends State<MyHomePage> {
                 itemBuilder: (context, index) {
                   final transaction = filteredTransactions[index];
                   return Card(
-                    margin: const EdgeInsets.only(bottom: 10),
-                    elevation: 5,
-                    child: ListTile(
-                      title: Text(transaction['name']),
-                      subtitle: Text(
-                        '\$${transaction['amount'].toStringAsFixed(2)}',
-                        style: TextStyle(
-                          color: transaction['isMoneyGiven']
-                              ? Colors.green
-                              : Colors.black,
-                        ),
+                    margin: const EdgeInsets.only(
+                        bottom: 16), 
+                    elevation: 5, 
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(
+                          10.0), 
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 8.0, 
+                        horizontal: 12.0, 
                       ),
-                      trailing: IconButton(
-                        icon: const Icon(Icons.delete, color: Colors.red),
-                        onPressed: () => deleteTransaction(index),
+                      child: ListTile(
+                        contentPadding: EdgeInsets
+                            .zero, 
+                        title: Row(
+                          children: [
+                            Expanded(
+                              child: Text(
+                                transaction['name'],
+                                style: const TextStyle(
+                                    fontSize: 20), 
+                              ),
+                            ),
+                            Text(
+                              '\₹${transaction['amount']}',
+                              style: TextStyle(
+                                color: transaction['isMoneyGiven']
+                                    ? Colors.green
+                                    : Colors.black,
+                                fontSize: 20,
+                              ),
+                            ),
+                          ],
+                        ),
+                        trailing: IconButton(
+                          icon: const Icon(Icons.delete, color: Colors.red),
+                          onPressed: () => deleteTransaction(index),
+                        ),
                       ),
                     ),
                   );

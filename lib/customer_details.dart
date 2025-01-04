@@ -95,7 +95,7 @@ class _CustomerDetailState extends State<CustomerDetail> {
                 ElevatedButton(
                   onPressed: () {
                     setState(() {
-                      isMoneyGiven = false;
+                      isMoneyGiven = false; 
                     });
                   },
                   style: ElevatedButton.styleFrom(
