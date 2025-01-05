@@ -133,7 +133,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               style: TextStyle(
                                 color: transaction['isMoneyGiven']
                                     ? Colors.green
-                                    : Colors.black,
+                                    : Colors.red,
                                 fontSize: 20,
                               ),
                             ),
