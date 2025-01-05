@@ -70,7 +70,7 @@ class _CustomerDetailState extends State<CustomerDetail> {
                 ),
               ),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 30),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -111,15 +111,31 @@ class _CustomerDetailState extends State<CustomerDetail> {
                 ),
               ],
             ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: saveTransaction,
-              style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.symmetric(
-                    vertical: 15.0, horizontal: 50.0),
-                textStyle: const TextStyle(fontSize: 18),
+           const SizedBox(height: 30),
+            Center(
+              child: ElevatedButton(
+                onPressed: saveTransaction,
+                style: ElevatedButton.styleFrom(
+                  foregroundColor: Colors.white, backgroundColor: Color.fromARGB(255, 130, 226, 241), 
+                  shape: RoundedRectangleBorder(
+                    borderRadius:
+                        BorderRadius.circular(10.0), 
+                  ),
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 20.0,
+                      horizontal: 50.0),
+                  elevation: 8, 
+                  textStyle: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w600, 
+                  ),
+                ),
+                child: const Text(
+                  'Save Transaction',
+                  style: TextStyle(
+                      fontSize: 24),
+                ),
               ),
-              child: const Text('Save Transaction'),
             ),
           ],
         ),
