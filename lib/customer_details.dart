@@ -8,20 +8,21 @@ class CustomerDetail extends StatefulWidget {
 }
 
 class _CustomerDetailState extends State<CustomerDetail> {
-  final TextEditingController _dateController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
   final TextEditingController _amountController = TextEditingController();
+  
 
   bool isMoneyGiven = false;
 
   @override
   void dispose() {
-    _dateController.dispose();
+    _nameController.dispose();
     _amountController.dispose();
     super.dispose();
   }
 
   void saveTransaction() {
-    final name = _dateController.text;
+    final name = _nameController.text;
     final amount = _amountController.text;
 
     if (name.isNotEmpty && amount.isNotEmpty) {
@@ -51,7 +52,7 @@ class _CustomerDetailState extends State<CustomerDetail> {
             ),
             const SizedBox(height: 20),
             TextField(
-              controller: _dateController,
+              controller: _nameController,
               decoration: InputDecoration(
                 labelText: 'Name',
                 border: OutlineInputBorder(
