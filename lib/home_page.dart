@@ -74,6 +74,22 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+  void navigateToEditTransaction(int index) async {
+    final updatedTransaction = await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) =>
+            CustomerDetail(transaction: filteredTransactions[index]),
+      ),
+    );
+
+    if (updatedTransaction != null) {
+      setState(() {
+        filteredTransactions[index] = updatedTransaction;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -109,35 +125,39 @@ class _MyHomePageState extends State<MyHomePage> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0),
                     ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 8.0,
-                        horizontal: 12.0,
-                      ),
-                      child: ListTile(
-                        contentPadding: EdgeInsets.zero,
-                        title: Row(
-                          children: [
-                            Expanded(
-                              child: Text(
-                                transaction['name'],
-                                style: const TextStyle(fontSize: 20),
-                              ),
-                            ),
-                            Text(
-                              '\₹${transaction['amount']}',
-                              style: TextStyle(
-                                color: transaction['isMoneyGiven']
-                                    ? Colors.green
-                                    : Colors.red,
-                                fontSize: 20,
-                              ),
-                            ),
-                          ],
+                    child: GestureDetector(
+                      onTap: () =>
+                          navigateToEditTransaction(index), 
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 8.0,
+                          horizontal: 12.0,
                         ),
-                        trailing: IconButton(
-                          icon: const Icon(Icons.delete, color: Colors.red),
-                          onPressed: () => deleteTransaction(index),
+                        child: ListTile(
+                          contentPadding: EdgeInsets.zero,
+                          title: Row(
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  transaction['name'],
+                                  style: const TextStyle(fontSize: 20),
+                                ),
+                              ),
+                              Text(
+                                '\₹${transaction['amount']}',
+                                style: TextStyle(
+                                  color: transaction['isMoneyGiven']
+                                      ? Colors.green
+                                      : Colors.red,
+                                  fontSize: 20,
+                                ),
+                              ),
+                            ],
+                          ),
+                          trailing: IconButton(
+                            icon: const Icon(Icons.delete, color: Colors.red),
+                            onPressed: () => deleteTransaction(index),
+                          ),
                         ),
                       ),
                     ),
