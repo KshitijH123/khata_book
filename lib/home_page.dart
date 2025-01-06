@@ -65,7 +65,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 transactions.removeAt(index);
                 filteredTransactions = transactions;
               });
-              Navigator.of(context).pop(); 
+              Navigator.of(context).pop();
             },
             child: const Text('Delete', style: TextStyle(color: Colors.red)),
           ),
@@ -104,28 +104,24 @@ class _MyHomePageState extends State<MyHomePage> {
                 itemBuilder: (context, index) {
                   final transaction = filteredTransactions[index];
                   return Card(
-                    margin: const EdgeInsets.only(
-                        bottom: 16), 
-                    elevation: 5, 
+                    margin: const EdgeInsets.only(bottom: 16),
+                    elevation: 5,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(
-                          10.0), 
+                      borderRadius: BorderRadius.circular(10.0),
                     ),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
-                        vertical: 8.0, 
-                        horizontal: 12.0, 
+                        vertical: 8.0,
+                        horizontal: 12.0,
                       ),
                       child: ListTile(
-                        contentPadding: EdgeInsets
-                            .zero, 
+                        contentPadding: EdgeInsets.zero,
                         title: Row(
                           children: [
                             Expanded(
                               child: Text(
                                 transaction['name'],
-                                style: const TextStyle(
-                                    fontSize: 20), 
+                                style: const TextStyle(fontSize: 20),
                               ),
                             ),
                             Text(
@@ -166,7 +162,7 @@ class _MyHomePageState extends State<MyHomePage> {
         },
         label: const Text('Add Customer'),
         icon: const Icon(Icons.person_add),
-      ), 
+      ),
     );
   }
 }
