@@ -155,7 +155,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             ],
                           ),
                           trailing: IconButton(
-                            icon: const Icon(Icons.delete, color: Colors.red),
+                            icon: const Icon(Icons.delete, color: Color.fromARGB(255, 237, 103, 93)),
                             onPressed: () => deleteTransaction(index),
                           ),
                         ),
