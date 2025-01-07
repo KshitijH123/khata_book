@@ -67,7 +67,7 @@ class _MyHomePageState extends State<MyHomePage> {
               });
               Navigator.of(context).pop();
             },
-            child: const Text('Delete', style: TextStyle(color: Colors.red)),
+            child: const Text('Delete', style: TextStyle(color: Color.fromARGB(255, 243, 101, 101))),
           ),
         ],
       ),
@@ -108,9 +108,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 decoration: InputDecoration(
                   labelText: 'Search',
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8.0),
+                    borderRadius: BorderRadius.circular(20.0),
                   ),
-                  prefixIcon: const Icon(Icons.search),
+                  prefixIcon: const Icon(Icons.search_outlined),
                 ),
               ),
             ),
