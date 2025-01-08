@@ -130,7 +130,7 @@ class _CustomerDetailState extends State<CustomerDetail> {
                   onPressed: saveTransaction,
                   style: ElevatedButton.styleFrom(
                     foregroundColor: Colors.white,
-                    backgroundColor: Color.fromARGB(255, 130, 226, 241),
+                    backgroundColor: Color.fromARGB(255, 8, 205, 235),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0),
                     ),
@@ -139,7 +139,7 @@ class _CustomerDetailState extends State<CustomerDetail> {
                     elevation: 8,
                     textStyle: const TextStyle(
                       fontSize: 20,
-                      fontWeight: FontWeight.w600,
+                      fontWeight: FontWeight.w400,
                     ),
                   ),
                   child: const Text(
