@@ -1,55 +1,47 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:khata_book/constants/constants.dart';
+import 'package:khata_book/model/transaction_model.dart';
+import 'package:khata_book/screens/add/transactions/controller/add_transaction_controller.dart';
 
-class CustomerDetail extends StatefulWidget {
-  final Map<String, dynamic>? transaction;
+class AddTransactionDetailScreen extends StatefulWidget {
+  final TransactionModel? transaction;
 
-  const CustomerDetail({super.key, this.transaction});
+  const AddTransactionDetailScreen({super.key, this.transaction});
 
   @override
-  _CustomerDetailState createState() => _CustomerDetailState();
+  _AddTransactionDetailScreenState createState() =>
+      _AddTransactionDetailScreenState();
 }
 
-class _CustomerDetailState extends State<CustomerDetail> {
-  final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _amountController = TextEditingController();
-  bool isMoneyGiven = false;
+class _AddTransactionDetailScreenState
+    extends State<AddTransactionDetailScreen> {
+  final controller = Get.put(AddTransactionController());
 
   @override
   void initState() {
     super.initState();
-    if (widget.transaction != null) {
-      _nameController.text = widget.transaction!['name'];
-      _amountController.text = widget.transaction!['amount'].toString();
-      isMoneyGiven = widget.transaction!['isMoneyGiven'];
-    }
+    controller.initialize(transaction: widget.transaction);
   }
 
   @override
   void dispose() {
-    _nameController.dispose();
-    _amountController.dispose();
+    controller.dispose();
     super.dispose();
   }
 
-  void saveTransaction() {
-    final name = _nameController.text;
-    final amount = _amountController.text;
-
-    if (name.isNotEmpty && amount.isNotEmpty) {
-      final transaction = {
-        'name': name,
-        'amount': double.tryParse(amount) ?? 0.0,
-        'isMoneyGiven': isMoneyGiven,
-      };
-
-      Navigator.pop(context, transaction);
+  void saveTransaction() async {
+    final success = await controller.saveTransaction();
+    if (success == true) {
+      Get.back(result: success);
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Customer Detail')),
+      appBar:
+          AppBar(title: const Text(AddTransactionConstants.transactionDetails)),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -58,14 +50,14 @@ class _CustomerDetailState extends State<CustomerDetail> {
             children: [
               const SizedBox(height: 10),
               const Text(
-                'Money Details',
+                AddTransactionConstants.moneyDetails,
                 style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 20),
               TextField(
-                controller: _nameController,
+                controller: controller.nameController,
                 decoration: InputDecoration(
-                  labelText: 'Name',
+                  labelText: AddTransactionConstants.name,
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8.0),
                   ),
@@ -73,10 +65,20 @@ class _CustomerDetailState extends State<CustomerDetail> {
               ),
               const SizedBox(height: 20),
               TextField(
-                controller: _amountController,
+                controller: controller.descriptionController,
+                decoration: InputDecoration(
+                  labelText: AddTransactionConstants.description,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 20),
+              TextField(
+                controller: controller.amountController,
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
-                  labelText: 'Amount',
+                  labelText: AddTransactionConstants.amount,
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8.0),
                   ),
@@ -89,18 +91,18 @@ class _CustomerDetailState extends State<CustomerDetail> {
                   ElevatedButton(
                     onPressed: () {
                       setState(() {
-                        isMoneyGiven = true;
+                        controller.moneyGiven = true;
                       });
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor:
-                          isMoneyGiven ? Colors.green : Colors.grey,
+                          controller.moneyGiven ? Colors.green : Colors.grey,
                       padding: const EdgeInsets.symmetric(
                           vertical: 20.0, horizontal: 20.0),
                       textStyle: const TextStyle(fontSize: 18),
                     ),
                     child: const Text(
-                      'Money Given',
+                      AddTransactionConstants.moneyGiven,
                       style: TextStyle(color: Colors.white),
                     ),
                   ),
@@ -108,17 +110,18 @@ class _CustomerDetailState extends State<CustomerDetail> {
                   ElevatedButton(
                     onPressed: () {
                       setState(() {
-                        isMoneyGiven = false;
+                        controller.moneyGiven = false;
                       });
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: !isMoneyGiven ? Colors.red : Colors.grey,
+                      backgroundColor:
+                          !controller.moneyGiven ? Colors.red : Colors.grey,
                       padding: const EdgeInsets.symmetric(
                           vertical: 20.0, horizontal: 20.0),
                       textStyle: const TextStyle(fontSize: 18),
                     ),
                     child: const Text(
-                      'Money to Give',
+                      AddTransactionConstants.moneyToGive,
                       style: TextStyle(color: Colors.white),
                     ),
                   ),
@@ -130,7 +133,7 @@ class _CustomerDetailState extends State<CustomerDetail> {
                   onPressed: saveTransaction,
                   style: ElevatedButton.styleFrom(
                     foregroundColor: Colors.white,
-                    backgroundColor: Color.fromARGB(255, 8, 205, 235),
+                    backgroundColor: const Color.fromARGB(255, 8, 205, 235),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0),
                     ),
@@ -143,7 +146,7 @@ class _CustomerDetailState extends State<CustomerDetail> {
                     ),
                   ),
                   child: const Text(
-                    'Save Transaction',
+                    AddTransactionConstants.saveTransaction,
                     style: TextStyle(fontSize: 24),
                   ),
                 ),

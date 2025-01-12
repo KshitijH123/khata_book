@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:khata_book/home_page.dart';
+import 'package:khata_book/screens/home/home_page_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -11,12 +11,13 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState  extends State<SplashScreen> {
+
   @override
   void initState() {
     super.initState();
-    Timer(const Duration(seconds: 3), () {
+    Timer(const Duration(seconds: 2), () {
       Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (_) => const MyHomePage(title: '',)),
+            MaterialPageRoute(builder: (_) => const HomePageScreen()),
           );
     });
   }

@@ -1,0 +1,1 @@
+typedef ReverseCallback = Function(Function());
