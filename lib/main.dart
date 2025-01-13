@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:khata_book/core/database_service.dart';
+//import 'package:khata_book/core/database_service.dart';
 import 'package:khata_book/screens/splash_screen.dart';
 
 void main() {
@@ -24,11 +24,9 @@ class MyApp extends StatelessWidget {
   }
 }
 
-void test(){
-
-  DatabaseService databaseService = DatabaseService.instance;
-  DatabaseService databaseService2 = DatabaseService.instance;
-  DatabaseService databaseService3 = DatabaseService.instance;
-  DatabaseService databaseService4 = DatabaseService.instance;
-
-}
+// void test() {
+//   DatabaseService databaseService = DatabaseService.instance;
+//   DatabaseService databaseService2 = DatabaseService.instance;
+//   DatabaseService databaseService3 = DatabaseService.instance;
+//   DatabaseService databaseService4 = DatabaseService.instance;
+// }
