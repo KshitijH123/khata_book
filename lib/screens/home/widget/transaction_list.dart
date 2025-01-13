@@ -92,7 +92,7 @@ class _TransactionListState extends State<TransactionList> {
             ),
             IconButton(
               onPressed: () => deleteTransaction(transaction),
-              icon: const Icon(Icons.delete),
+              icon: const Icon(Icons.delete,color: Colors.redAccent,),
             ),
           ],
         ),
