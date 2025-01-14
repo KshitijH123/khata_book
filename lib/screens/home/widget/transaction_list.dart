@@ -73,28 +73,25 @@ class _TransactionListState extends State<TransactionList> {
     }
   }
 
- Widget itemView(TransactionModel transaction) {
+  Widget itemView(TransactionModel transaction) {
     return Card(
       color: Colors.white,
-      margin: const EdgeInsets.symmetric(
-          vertical: 2.0,
-          horizontal: 8.0), 
+      margin: const EdgeInsets.symmetric(vertical: 2.0, horizontal: 8.0),
       child: Container(
-        height: 80, 
-        padding: const EdgeInsets.all(8.0), 
+        height: 80,
+        padding: const EdgeInsets.all(8.0),
         child: ListTile(
           title: Text(
             transaction.name,
             style: const TextStyle(
-              fontSize:
-                  18, 
-              fontWeight: FontWeight.bold, 
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
             ),
           ),
           subtitle: Text(
             transaction.description,
             style: const TextStyle(
-              fontSize: 14, 
+              fontSize: 14,
               color: Colors.grey,
             ),
           ),
@@ -105,7 +102,7 @@ class _TransactionListState extends State<TransactionList> {
               Text(
                 transaction.amount.toStringAsFixed(1),
                 style: TextStyle(
-                  fontSize: 14,
+                  fontSize: 18,
                   color: transaction.moneyGiven ? Colors.green : Colors.red,
                 ),
               ),
@@ -122,31 +119,21 @@ class _TransactionListState extends State<TransactionList> {
     );
   }
 
-
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: controller.futureTransactions,
-      builder: (context, snapshot) {
-        if (!snapshot.hasData) {
-          return const CircularProgressIndicator();
-        }
+    return Obx(() {
+      final transactions = controller.transactions;
 
-        final transactions = snapshot.data;
+      if (transactions.isEmpty) {
+        return const Center(child: Text('No transaction record available.'));
+      }
 
-        if (transactions?.isNotEmpty == true) {
-          return ListView.builder(
-            itemCount: transactions!.length,
-            itemBuilder: (context, index) {
-              return itemView(transactions[index]);
-            },
-          );
-        } else {
-          return const Center(
-            child: Text('No transaction record available.'),
-          );
-        }
-      },
-    );
+      return ListView.builder(
+        itemCount: transactions.length,
+        itemBuilder: (context, index) {
+          return itemView(transactions[index]);
+        },
+      );
+    });
   }
 }
