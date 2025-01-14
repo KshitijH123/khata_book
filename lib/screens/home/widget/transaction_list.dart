@@ -73,34 +73,55 @@ class _TransactionListState extends State<TransactionList> {
     }
   }
 
-  Widget itemView(TransactionModel transaction) {
+ Widget itemView(TransactionModel transaction) {
     return Card(
       color: Colors.white,
-      child: ListTile(
-        title: Text(transaction.name),
-        subtitle: Text(transaction.description),
-        trailing: Row(
-          mainAxisSize: MainAxisSize.min,
-          spacing: 16,
-          children: [
-            Text(
-              transaction.amount.toStringAsFixed(1),
-              style: TextStyle(
-                fontSize: 14,
-                color: transaction.moneyGiven ? Colors.green : Colors.red,
+      margin: const EdgeInsets.symmetric(
+          vertical: 2.0,
+          horizontal: 8.0), 
+      child: Container(
+        height: 80, 
+        padding: const EdgeInsets.all(8.0), 
+        child: ListTile(
+          title: Text(
+            transaction.name,
+            style: const TextStyle(
+              fontSize:
+                  18, 
+              fontWeight: FontWeight.bold, 
+            ),
+          ),
+          subtitle: Text(
+            transaction.description,
+            style: const TextStyle(
+              fontSize: 14, 
+              color: Colors.grey,
+            ),
+          ),
+          trailing: Row(
+            mainAxisSize: MainAxisSize.min,
+            spacing: 16,
+            children: [
+              Text(
+                transaction.amount.toStringAsFixed(1),
+                style: TextStyle(
+                  fontSize: 14,
+                  color: transaction.moneyGiven ? Colors.green : Colors.red,
+                ),
               ),
-            ),
-            IconButton(
-              onPressed: () => deleteTransaction(transaction),
-              icon: const Icon(Icons.delete, color: Colors.redAccent),
-            ),
-          ],
+              IconButton(
+                onPressed: () => deleteTransaction(transaction),
+                icon: const Icon(Icons.delete_forever_rounded,
+                    color: Colors.redAccent),
+              ),
+            ],
+          ),
+          onTap: () => navigateToTransactionDetails(transaction),
         ),
-        onTap: () =>
-            navigateToTransactionDetails(transaction), 
       ),
     );
   }
+
 
   @override
   Widget build(BuildContext context) {
