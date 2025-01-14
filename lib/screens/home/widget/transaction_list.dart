@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:khata_book/model/transaction_model.dart';
-
+import 'package:khata_book/screens/add/transactions/add_transaction_details_screen.dart';
 import '../../../core/typedef_models.dart';
 import '../controller/transaction_list_controller.dart';
 
@@ -63,15 +63,15 @@ class _TransactionListState extends State<TransactionList> {
     );
   }
 
-  // void navigateToEditTransaction(int index) async {
-  //   final updatedTransaction = await Get.to(AddTransactionDetailScreen());
-  //
-  //   if (updatedTransaction != null) {
-  //     setState(() {
-  //       filteredTransactions[index] = updatedTransaction;
-  //     });
-  //   }
-  // }
+  void navigateToTransactionDetails(TransactionModel transaction) async {
+    final updatedTransaction = await Get.to(
+      () => AddTransactionDetailScreen(transaction: transaction),
+    );
+
+    if (updatedTransaction != null) {
+      refreshScreen();
+    }
+  }
 
   Widget itemView(TransactionModel transaction) {
     return Card(
@@ -92,10 +92,12 @@ class _TransactionListState extends State<TransactionList> {
             ),
             IconButton(
               onPressed: () => deleteTransaction(transaction),
-              icon: const Icon(Icons.delete,color: Colors.redAccent,),
+              icon: const Icon(Icons.delete, color: Colors.redAccent),
             ),
           ],
         ),
+        onTap: () =>
+            navigateToTransactionDetails(transaction), 
       ),
     );
   }
