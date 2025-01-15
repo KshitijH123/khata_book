@@ -2,6 +2,7 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:khata_book/screens/add/transactions/add_transaction_details_screen.dart';
+import 'package:khata_book/screens/home/search_page.dart';
 import 'package:khata_book/screens/home/widget/transaction_list.dart';
 
 class HomePageScreen extends StatefulWidget {
@@ -24,8 +25,11 @@ class _HomePageScreenState extends State<HomePageScreen> {
           },
         );
       case 1:
-        return const Center(child: Text('Search Page'));
-      case 2:
+        return SearchPage(
+          reserveCallback: (refreshTransactionList) {
+            this.refreshTransactionList = refreshTransactionList;
+          },
+        );      case 2:
         return const Center(child: Text('App Info'));
       default:
         return Container();
