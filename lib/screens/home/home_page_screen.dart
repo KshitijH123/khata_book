@@ -29,8 +29,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
           reserveCallback: (refreshTransactionList) {
             this.refreshTransactionList = refreshTransactionList;
           },
-        );      
-      case 2:
+        );      case 2:
         return const Center(child: Text('App Info'));
       default:
         return Container();
