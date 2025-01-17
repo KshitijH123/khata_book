@@ -3,9 +3,19 @@ import 'package:khata_book/core/database_service.dart';
 import 'package:khata_book/model/transaction_model.dart';
 
 class TransactionListController extends GetxController {
-  RxList<TransactionModel> transactions =
-      <TransactionModel>[].obs; 
+  RxList<TransactionModel> transactions = <TransactionModel>[].obs;
 
+  double get totalMoneyGiven {
+    return transactions
+        .where((transaction) => transaction.moneyGiven)
+        .fold(0.0, (sum, transaction) => sum + transaction.amount);
+  }
+
+  double get totalMoneyToGive {
+    return transactions
+        .where((transaction) => !transaction.moneyGiven)
+        .fold(0.0, (sum, transaction) => sum + transaction.amount);
+  }
   Future<void> fetchAllTransactions() async {
     final fetchedTransactions =
         await DatabaseService.instance.fetchAllTransactions();
@@ -16,7 +26,8 @@ class TransactionListController extends GetxController {
     bool success =
         await DatabaseService.instance.deleteTransaction(transaction);
     if (success) {
-      transactions.remove(transaction); 
+      transactions.remove(
+          transaction); 
     }
     return success;
   }
