@@ -16,6 +16,7 @@ class TransactionListController extends GetxController {
         .where((transaction) => !transaction.moneyGiven)
         .fold(0.0, (sum, transaction) => sum + transaction.amount);
   }
+
   Future<void> fetchAllTransactions() async {
     final fetchedTransactions =
         await DatabaseService.instance.fetchAllTransactions();
