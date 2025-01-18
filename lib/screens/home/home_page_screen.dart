@@ -56,7 +56,6 @@ class _HomePageScreenState extends State<HomePageScreen> {
       ),
       body: Column(
         children: [
-          // Add Obx to make the UI reactive and update when data changes
           Obx(() {
             final totalMoneyGiven = controller.totalMoneyGiven;
             final totalMoneyToGive = controller.totalMoneyToGive;
@@ -108,8 +107,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
                       ],
                     ),
                   )
-                : SizedBox
-                    .shrink(); // Return empty container if not on the correct page
+                : const SizedBox
+                    .shrink(); 
           }),
 
           Expanded(child: pageContent()),
