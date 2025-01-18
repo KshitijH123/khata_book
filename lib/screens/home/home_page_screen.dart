@@ -49,9 +49,6 @@ class _HomePageScreenState extends State<HomePageScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final totalMoneyGiven = controller.totalMoneyGiven;
-    final totalMoneyToGive = controller.totalMoneyToGive;
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -59,34 +56,62 @@ class _HomePageScreenState extends State<HomePageScreen> {
       ),
       body: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text('Money Given', style: TextStyle(fontSize: 16)),
-                    Text(
-                      '₹$totalMoneyGiven',
-                      style: const TextStyle(fontSize: 20, color: Colors.green),
+          // Add Obx to make the UI reactive and update when data changes
+          Obx(() {
+            final totalMoneyGiven = controller.totalMoneyGiven;
+            final totalMoneyToGive = controller.totalMoneyToGive;
+            return selectedIndex == 0
+                ? Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            const Text('Money Given',
+                                style: TextStyle(fontSize: 18)),
+                            Text(
+                              '+ ₹${totalMoneyGiven.toStringAsFixed(1)}',
+                              style: const TextStyle(
+                                  fontSize: 20, color: Colors.green),
+                            ),
+                          ],
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            const Text('Money To Give',
+                                style: TextStyle(fontSize: 18)),
+                            Text(
+                              '- ₹${totalMoneyToGive.toStringAsFixed(1)}',
+                              style: const TextStyle(
+                                  fontSize: 20, color: Colors.red),
+                            ),
+                          ],
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            const Text('Total', style: TextStyle(fontSize: 18)),
+                            Text(
+                              '₹${(totalMoneyGiven - totalMoneyToGive).toStringAsFixed(1)}',
+                              style: TextStyle(
+                                fontSize: 20,
+                                color: (totalMoneyGiven - totalMoneyToGive) >= 0
+                                    ? Colors.green
+                                    : Colors.red,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    const Text('Money To Give', style: TextStyle(fontSize: 16)),
-                    Text(
-                      '₹$totalMoneyToGive',
-                      style: const TextStyle(fontSize: 20, color: Colors.red),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
+                  )
+                : SizedBox
+                    .shrink(); // Return empty container if not on the correct page
+          }),
+
           Expanded(child: pageContent()),
         ],
       ),
@@ -122,3 +147,4 @@ class _HomePageScreenState extends State<HomePageScreen> {
     );
   }
 }
+ 
