@@ -52,7 +52,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const Text('Khata Book', style: TextStyle(fontSize: 26)),
+        title: const Text('𝐊𝐇𝐀𝐓𝐀  𝐁𝐎𝐎𝐊', style: TextStyle(fontSize: 26)),
       ),
      body: Column(
         children: [
@@ -72,8 +72,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              const Text('Money Given',
-                                  style: TextStyle(fontSize: 18)),
+                              const Text('MONEY GIVEN',
+                                  style: TextStyle(fontSize: 16)),
                               Text(
                                 '+ ₹${totalMoneyGiven.toStringAsFixed(1)}',
                                 style: const TextStyle(
@@ -86,8 +86,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              const Text('Money To Give',
-                                  style: TextStyle(fontSize: 18)),
+                              const Text('MONEY TO GIVE',
+                                  style: TextStyle(fontSize: 16)),
                               Text(
                                 '- ₹${totalMoneyToGive.toStringAsFixed(1)}',
                                 style: const TextStyle(
@@ -100,8 +100,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              const Text('Total',
-                                  style: TextStyle(fontSize: 18)),
+                              const Text('TOTAL',
+                                  style: TextStyle(fontSize: 16)),
                               Text(
                                 '₹${(totalMoneyGiven - totalMoneyToGive).toStringAsFixed(1)}',
                                 style: TextStyle(
