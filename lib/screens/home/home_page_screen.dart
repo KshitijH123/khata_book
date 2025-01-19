@@ -54,7 +54,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: const Text('Khata Book', style: TextStyle(fontSize: 26)),
       ),
-      body: Column(
+     body: Column(
         children: [
           Obx(() {
             final totalMoneyGiven = controller.totalMoneyGiven;
@@ -62,59 +62,68 @@ class _HomePageScreenState extends State<HomePageScreen> {
             return selectedIndex == 0
                 ? Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            const Text('Money Given',
-                                style: TextStyle(fontSize: 18)),
-                            Text(
-                              '+ ₹${totalMoneyGiven.toStringAsFixed(1)}',
-                              style: const TextStyle(
-                                  fontSize: 20, color: Colors.green),
-                            ),
-                          ],
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            const Text('Money To Give',
-                                style: TextStyle(fontSize: 18)),
-                            Text(
-                              '- ₹${totalMoneyToGive.toStringAsFixed(1)}',
-                              style: const TextStyle(
-                                  fontSize: 20, color: Colors.red),
-                            ),
-                          ],
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            const Text('Total', style: TextStyle(fontSize: 18)),
-                            Text(
-                              '₹${(totalMoneyGiven - totalMoneyToGive).toStringAsFixed(1)}',
-                              style: TextStyle(
-                                fontSize: 20,
-                                color: (totalMoneyGiven - totalMoneyToGive) >= 0
-                                    ? Colors.green
-                                    : Colors.red,
+                    child: SingleChildScrollView(
+                      scrollDirection:
+                          Axis.horizontal,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment
+                            .start, 
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              const Text('Money Given',
+                                  style: TextStyle(fontSize: 18)),
+                              Text(
+                                '+ ₹${totalMoneyGiven.toStringAsFixed(1)}',
+                                style: const TextStyle(
+                                    fontSize: 20, color: Colors.green),
                               ),
-                            ),
-                          ],
-                        ),
-                      ],
+                            ],
+                          ),
+                          const SizedBox(
+                              width: 16),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              const Text('Money To Give',
+                                  style: TextStyle(fontSize: 18)),
+                              Text(
+                                '- ₹${totalMoneyToGive.toStringAsFixed(1)}',
+                                style: const TextStyle(
+                                    fontSize: 20, color: Colors.red),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                              width: 16), 
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              const Text('Total',
+                                  style: TextStyle(fontSize: 18)),
+                              Text(
+                                '₹${(totalMoneyGiven - totalMoneyToGive).toStringAsFixed(1)}',
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  color:
+                                      (totalMoneyGiven - totalMoneyToGive) >= 0
+                                          ? Colors.green
+                                          : Colors.red,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   )
-                : const SizedBox
-                    .shrink(); 
+                : const SizedBox.shrink();
           }),
-
           Expanded(child: pageContent()),
         ],
       ),
-      floatingActionButton: selectedIndex == 0
+        floatingActionButton: selectedIndex == 0
           ? FloatingActionButton.extended(
               onPressed: () async {
                 final refresh =
